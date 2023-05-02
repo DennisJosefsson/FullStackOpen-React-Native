@@ -53,7 +53,7 @@ const RepositoryItem = ({
             </Text>
             <View
               style={{
-                width: 300,
+                width: 275,
                 flexGrow: 1,
                 flex: 1,
                 margin: 1,
