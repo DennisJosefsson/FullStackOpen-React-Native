@@ -1,18 +1,7 @@
-import { View, Image, StyleSheet } from 'react-native'
+import { View, Image, Pressable } from 'react-native'
+import * as Linking from 'expo-linking'
 import theme from '../theme'
 import Text from './Text'
-
-const itemStyle = StyleSheet.create({
-  itemMainContainer: {
-    display: 'flex',
-  },
-  itemDividerContainer: {
-    flexDirection: 'row',
-    padding: 2,
-    margin: 2,
-    display: 'flex',
-  },
-})
 
 const RepositoryItem = ({
   fullName,
@@ -23,12 +12,21 @@ const RepositoryItem = ({
   ratingAverage,
   reviewCount,
   imageUrl,
-  styles,
+  url,
+  showLinkButton,
 }) => {
+  const onPressHandle = async () => {
+    try {
+      await Linking.openURL(url)
+    } catch (error) {
+      console.log(error.message)
+    }
+  }
+
   return (
-    <View style={styles.containerItem}>
-      <View style={itemStyle.itemMainContainer}>
-        <View style={itemStyle.itemDividerContainer}>
+    <View testID="repositoryItem" style={theme.containerItem}>
+      <View style={theme.itemMainContainer}>
+        <View style={theme.itemDividerContainer}>
           <View style={{ margin: 3 }}>
             <Image
               style={theme.img}
@@ -69,8 +67,7 @@ const RepositoryItem = ({
                 color: 'white',
                 backgroundColor: 'blue',
                 borderRadius: 5,
-                padding: 3,
-                margin: 1,
+                padding: 5,
               }}
               fontSize="body"
             >
@@ -161,6 +158,13 @@ const RepositoryItem = ({
           </Text>
         </View>
       </View>
+      {showLinkButton && (
+        <Pressable onPress={onPressHandle}>
+          <Text fontSize="subheading" fontWeight="bold" style={theme.button}>
+            GitHub Repo
+          </Text>
+        </Pressable>
+      )}
     </View>
   )
 }

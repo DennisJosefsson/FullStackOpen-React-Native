@@ -45,6 +45,18 @@ const SignInForm = ({ onSubmit }) => {
   )
 }
 
+export const SignInFormContainer = ({ onSubmit }) => {
+  return (
+    <Formik
+      initialValues={initialValues}
+      onSubmit={onSubmit}
+      validationSchema={validationSchema}
+    >
+      {({ handleSubmit }) => <SignInForm onSubmit={handleSubmit} />}
+    </Formik>
+  )
+}
+
 const SignIn = () => {
   const [signIn] = useSignIn(initialValues)
   const navigate = useNavigate()
@@ -60,15 +72,7 @@ const SignIn = () => {
     }
   }
 
-  return (
-    <Formik
-      initialValues={initialValues}
-      onSubmit={onSubmit}
-      validationSchema={validationSchema}
-    >
-      {({ handleSubmit }) => <SignInForm onSubmit={handleSubmit} />}
-    </Formik>
-  )
+  return <SignInFormContainer onSubmit={onSubmit} />
 }
 
 export default SignIn

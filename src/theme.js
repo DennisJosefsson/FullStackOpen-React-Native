@@ -1,4 +1,5 @@
 import { Platform } from 'react-native'
+import Constants from 'expo-constants'
 
 const theme = {
   colors: {
@@ -46,18 +47,97 @@ const theme = {
   },
   button: {
     height: 40,
-    padding: 5,
+    padding: 10,
     backgroundColor: 'blue',
-    margin: 10,
+    // marginTop: 10,
+    // marginBottom: 10,
+    // marginLeft: 15,
+    // marginRight: 15,
     borderRadius: 5,
     color: 'white',
-    fontSize: 20,
+    fontSize: 14,
+    textAlign: 'center',
+  },
+  buttonRed: {
+    height: 40,
+    padding: 10,
+    backgroundColor: 'red',
+    // marginTop: 10,
+    // marginBottom: 5,
+    // marginLeft: 15,
+    // marginRight: 15,
+    borderRadius: 5,
+    color: 'white',
+    fontSize: 14,
     textAlign: 'center',
   },
   errorText: {
     marginTop: 5,
     marginLeft: 5,
     color: 'red',
+  },
+  separator: {
+    height: 10,
+  },
+  container: {
+    display: 'flex',
+    backgroundColor: '#c3dfe0',
+    paddingBottom: 5,
+  },
+  containerItem: {
+    padding: 5,
+    marginLeft: 5,
+    marginRight: 5,
+    marginTop: 6,
+    backgroundColor: 'white',
+    borderRadius: 5,
+  },
+  reviewItem: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    alignContent: 'center',
+    textAlign: 'center',
+    textAlignVertical: 'center',
+    width: 60,
+    height: 60,
+    borderColor: '#54a6f7',
+    color: '#54a6f7',
+    borderRadius: 30,
+    borderWidth: 2,
+    fontSize: 25,
+    marginLeft: 5,
+    marginTop: 5,
+    includeFontPadding: false,
+  },
+  appBarContainer: {
+    paddingTop: Constants.statusBarHeight,
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    backgroundColor: '#19335e',
+  },
+  appBarFlexItem: {
+    color: '#e6eaf0',
+    flexGrow: 0,
+    fontSize: 18,
+    margin: 10,
+    fontWeight: '600',
+  },
+  pickerStyle: {
+    padding: 5,
+    margin: 5,
+    borderWidth: 1,
+    borderRadius: 5,
+  },
+  itemMainContainer: {
+    display: 'flex',
+  },
+  itemDividerContainer: {
+    flexDirection: 'row',
+    padding: 2,
+    margin: 2,
+    display: 'flex',
   },
 }
 

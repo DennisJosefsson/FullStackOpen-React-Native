@@ -1,31 +1,33 @@
 import { useQuery } from '@apollo/client'
 import { GET_REPOSITORIES } from '../graphql/queries'
-import { View, Text } from 'react-native'
 
-const useRepositories = () => {
-  const { data, error, loading } = useQuery(GET_REPOSITORIES, {
+const useRepositories = (variables) => {
+  const { data, loading, fetchMore, ...result } = useQuery(GET_REPOSITORIES, {
+    variables,
     fetchPolicy: 'cache-and-network',
   })
 
-  if (loading) {
-    return (
-      <View>
-        <Text>Loading...</Text>
-      </View>
-    )
+  const handleFetchMore = () => {
+    const canFetchMore = !loading && data?.repositories.pageInfo.hasNextPage
+
+    if (!canFetchMore) {
+      return
+    }
+
+    fetchMore({
+      variables: {
+        after: data.repositories.pageInfo.endCursor,
+        ...variables,
+      },
+    })
   }
 
-  if (error) {
-    return (
-      <View>
-        <Text>There was an error, {error.message}</Text>
-      </View>
-    )
+  return {
+    repositories: data?.repositories,
+    fetchMore: handleFetchMore,
+    loading,
+    ...result,
   }
-
-  const repositories = data
-
-  return repositories
 }
 
 export default useRepositories

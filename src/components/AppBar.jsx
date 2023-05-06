@@ -1,28 +1,10 @@
-import { View, StyleSheet, Text, ScrollView, Pressable } from 'react-native'
+import { View, Text, ScrollView, Pressable } from 'react-native'
 import { Link, useNavigate } from 'react-router-native'
-import Constants from 'expo-constants'
+
 import { useQuery, useApolloClient } from '@apollo/client'
 import { GET_USER } from '../graphql/queries'
 import { useAuthStorage } from '../hooks/useAuthStorage'
-
-// import AppBarTab from './AppBarTab'
-
-const styles = StyleSheet.create({
-  container: {
-    paddingTop: Constants.statusBarHeight,
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    backgroundColor: '#19335e',
-  },
-  flexItem: {
-    color: '#e6eaf0',
-    flexGrow: 0,
-    fontSize: 18,
-    margin: 10,
-    fontWeight: '600',
-  },
-})
+import theme from '../theme'
 
 const AppBar = () => {
   const client = useApolloClient()
@@ -48,25 +30,40 @@ const AppBar = () => {
   const user = data.me
 
   const signOut = async () => {
+    navigate('/')
     await authStorage.removeAccessToken()
     await client.resetStore()
-    navigate('/')
   }
 
   return (
-    <View style={styles.container}>
+    <View style={theme.appBarContainer}>
       <ScrollView horizontal>
         <Link to="/">
-          <Text style={styles.flexItem}>Repositories</Text>
+          <Text style={theme.appBarFlexItem}>Repositories</Text>
         </Link>
         {!user && (
           <Link to="/signin">
-            <Text style={styles.flexItem}>Sign in</Text>
+            <Text style={theme.appBarFlexItem}>Sign in</Text>
+          </Link>
+        )}
+        {!user && (
+          <Link to="/signup">
+            <Text style={theme.appBarFlexItem}>Sign up</Text>
+          </Link>
+        )}
+        {user && (
+          <Link to="/createreview">
+            <Text style={theme.appBarFlexItem}>Create a review</Text>
+          </Link>
+        )}
+        {user && (
+          <Link to="/myreviews">
+            <Text style={theme.appBarFlexItem}>My reviews</Text>
           </Link>
         )}
         {user && (
           <Pressable onPress={signOut}>
-            <Text style={styles.flexItem}>Sign out</Text>
+            <Text style={theme.appBarFlexItem}>Sign out</Text>
           </Pressable>
         )}
       </ScrollView>
